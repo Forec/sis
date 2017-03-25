@@ -1,37 +1,11 @@
 module Core.SisCore where
 
 import Data.Char
-
 import Control.Exception
-import Control.DeepSeq (rnf)
-
 import System.IO
 import System.Directory
 
-dataDir :: FilePath
-dataDir = ".sis"
-
-workDB :: FilePath
-workDB = ".sis/workDB.txt"
-
-aliasDB :: FilePath
-aliasDB = ".sis/aliasDB.txt"
-
-getFileHandle :: FilePath -> IO Handle
-getFileHandle path = do
-  exist <- doesFileExist path
-  if exist
-  then openFile path ReadMode
-  else do
-    writeFile path ""
-    openFile path ReadMode
-
-getContent :: FilePath -> IO String
-getContent path = do
-  handle' <- getFileHandle path
-  contents <- hGetContents handle'
-  rnf contents `seq` hClose handle'
-  return contents
+import IO.SisIO (getContent)
 
 getId :: String -> IO Int
 getId aliasOrId = if all isDigit aliasOrId

@@ -1,15 +1,14 @@
 module Main where
 
-import Control.Monad (unless)
+import Database.HDBC (disconnect)
 import System.Environment (getArgs)
-import System.Directory (createDirectory, doesDirectoryExist)
 import Core.SisCore
+import Data.SisDB (initDB)
 
 main :: IO ()
 main = do
+  conn <- initDB
   args <- getArgs
-  dataDirExist <- doesDirectoryExist dataDir
-  unless dataDirExist $ createDirectory dataDir
   case args of 
     ["help"] -> putStrLn ("\n Use 'hub [option]', following options are provided:                    \n\n" ++ 
                          "   add [work name]: add a new work type into database.                    \n\n" ++
@@ -30,3 +29,4 @@ main = do
     ["alias", shortName, workId] -> aliasWork shortName workId
     ["remove", idOrAlias] -> removeWork idOrAlias
     _ -> putStrLn "Functions not implemented yet"
+  disconnect conn
