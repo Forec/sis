@@ -12,7 +12,7 @@ SIS 是一个轻量的个人工作日志辅助工具。
 下载的二进制文件名为 `sis`，将其放置在环境变量 `$PATH$` 包含的目录下。 
 
 ### 从源码编译
-要从源码编译，你的环境需要 GHC >= 8.0.2。
+要从源码编译，你的环境需要 GHC >= 8.0.2 以及 HDBC、HDBC-Sqlite3 库，并确保 Sqlite3-dev 已正确安装。
 ```shell
 git clone https://github.com/Forec/sis.git
 cd sis
@@ -22,6 +22,10 @@ ghc -O2 sis.hs
 
 ## 帮助
 通过 `sis help` 获取帮助。
+
+## 待实现功能
+* 迁移至 DBMS
+* 逻辑
 
 ## 许可证
 此仓库中的全部代码均受仓库中 [License](https://github.com/Forec/sis/blob/master/LICENSE) 声明的许可证保护。
